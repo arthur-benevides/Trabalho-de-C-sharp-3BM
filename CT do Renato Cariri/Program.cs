@@ -1,0 +1,199 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CT_do_Renato_Cariri
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //Exibir o cabeçalho do programa
+            Cabeçalho("CT do Renato Cariri");
+            Console.WriteLine("Bem-vindo ao programa de controle de frequência e treinos dos alunos do CT do Renato Cariri!");
+
+            //Vetor de nomes dos alunos
+            string[] nomes =
+            {
+                "Carlos",
+                "Miguel",
+                "Benevides",
+                "Nelson",
+                "Breno"
+            };
+
+            //Pesquisa sequencial de um nome no vetor de nomes
+            Console.WriteLine("\nNome para ser procurado: ");
+            string nomeProcurado = "Benevides";
+
+            int posicao = PesquisaSequencial(nomes, nomeProcurado);
+
+            if (posicao != -1)
+            {
+                Console.WriteLine($"O nome {nomeProcurado} foi encontrado na posição {posicao + 1}/5.");
+            }
+            else
+            {
+                Console.WriteLine($"O nome {nomeProcurado} não foi encontrado.");
+            }
+
+            //Frequencia dos alunos em uma matriz
+            int[,] frequencia = new int[,]
+            {
+                {1, 1, 1, 0, 1, 1, 0 }, //Carlos
+                {0, 1, 1, 1, 0, 1, 1 }, //Miguel
+                {0, 1, 0, 1, 0, 1, 0 }, //Benevides
+                {1, 1, 1, 1, 1, 1, 1 }, //Nelson
+                {0, 1, 0, 1, 0, 0, 0 }  //Breno
+            };
+
+            string[][] treinos =
+            {
+                new string [] {"Peito", "Perna", "Costas", "Superiores", "Inferiores"},
+                new string [] {"Quadriceps", "Superiores", "Posterior", "Glúteos", "Abdomen"},
+                new string [] {"Posterior de Dorsal", "Inferior de Bacia", "Esternocleidomastóideo"},
+                new string [] {"Peito", "bíceps", "Peito", "Antebraço", "Peito", "Glúteos", "Peito do pé" },
+                new string [] {"Pescoço", "Glúteos" }
+            };
+
+            double[] mensalidade = { 150.00, 120.00, 167.42, 60.00, 200.00 };
+
+            // Exibir os dados completos antes da ordenação
+            Cabeçalho("Nomes antes de Ordenar");
+            ExibirDadosCompletos(nomes, frequencia, treinos, mensalidade);
+
+            // Ordenar os nomes em ordem alfabética usando Bubble Sort
+            Cabeçalho("Nomes Em Ordem Alfabetica!");
+
+            BubbleSort(nomes, frequencia, treinos, mensalidade);
+
+            //Dados apos ordenaçao
+            ExibirDadosCompletos(nomes, frequencia, treinos, mensalidade);
+
+            // Pesquisa Binária (após ordenação)
+            string nomeBuscaBinaria = "Nelson";
+            int posBinaria = PesquisaBinaria(nomes, nomeBuscaBinaria);
+
+            Console.WriteLine($"\n[Pesquisa Binária] Procurando {nomeBuscaBinaria} no vetor ordenado");
+            if (posBinaria != -1)
+                Console.WriteLine($"O nome {nomeBuscaBinaria} foi encontrado na posição ordenada {posBinaria + 1}/5.");
+            else
+                Console.WriteLine($"O nome {nomeBuscaBinaria} não foi encontrado.");
+        }
+        // Função para exibir o cabeçalho do programa
+        static void Cabeçalho(string Título)
+        {
+            Console.WriteLine("\n===================================");
+            Console.WriteLine($"  {Título}");
+            Console.WriteLine("===================================");
+        }
+
+        // Função para trocar os nomes de posição
+        static void TrocarNomes(ref string a, ref string b)
+        {
+            string temp = a;
+            a = b;
+            b = temp;
+        }
+
+        // Função para trocar as mensalidades de posição
+        static void TrocarMensalidade(ref double a, ref double b)
+        {
+            double temp = a;
+            a = b;
+            b = temp;
+        }
+
+
+        // Função para trocar os treinos de posição
+        static void TrocarTreinos(ref string[] a, ref string[] b)
+        {
+            string[] temp = a;
+            a = b;
+            b = temp;
+        }
+
+
+        // Função para ordenar os nomes em ordem alfabética usando Bubble Sort
+        static void BubbleSort(string[] nomes, int[,] frequencia, string[][] treinos, double[] mensalidade)
+        {
+            int n = nomes.Length;
+            int numDiasFrequencia = frequencia.GetLength(1);
+
+            for (int i = 0; i < n - 1; i++)
+            {
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    if (nomes[j].CompareTo(nomes[j + 1]) > 0)
+                    {
+                        TrocarNomes(ref nomes[j], ref nomes[j + 1]);
+                        TrocarMensalidade(ref mensalidade[j], ref mensalidade[j + 1]);
+                        TrocarTreinos(ref treinos[j], ref treinos[j + 1]);
+
+                        for (int k = 0; k < numDiasFrequencia; k++)
+                        {
+                            int tempFreq = frequencia[j, k];
+                            frequencia[j, k] = frequencia[j + 1, k];
+                            frequencia[j + 1, k] = tempFreq;
+                        }
+                    }
+                }
+                Console.WriteLine("");
+            }
+        }
+
+        // Função para exibir os dados completos dos alunos
+        static void ExibirDadosCompletos(string[] nomes, int[,] frequencia, string[][] treinos, double[] mensalidade)
+        {
+            for (int i = 0; i < nomes.Length; i++)
+            {
+                Console.WriteLine($"\n Aluno: {nomes[i]}");
+                Console.WriteLine($"   Mensalidade: R$ {mensalidade[i]:f2}");
+                Console.Write($"   Treinos: {string.Join(", ", treinos[i])}");
+                Console.WriteLine();
+
+                Console.Write("   Frequência (7 dias): [ ");
+                for (int k = 0; k < frequencia.GetLength(1); k++)
+                {
+                    Console.Write(frequencia[i, k] + " ");
+                }
+                Console.WriteLine("]");
+            }
+        }
+
+        // Função para realizar a pesquisa sequencial de um nome no vetor de nomes
+        static int PesquisaSequencial(string[] nomes, string nomeProcurado)
+        {
+            for (int i = 0; i < nomes.Length; i++)
+            {
+                if (nomes[i] == nomeProcurado)
+                    return i;
+            }
+            return -1;
+        }
+
+        // Função para realizar a pesquisa binária de um nome no vetor de nomes ordenado
+        static int PesquisaBinaria(string[] nomes, string nomeProcurado)
+        {
+            int inicio = 0;
+            int fim = nomes.Length - 1;
+            while (inicio <= fim)
+            {
+                int meio = (inicio + fim) / 2;
+                int comparacao = string.Compare(nomes[meio], nomeProcurado, StringComparison.OrdinalIgnoreCase);
+
+                if (comparacao == 0)
+                    return meio;
+
+                if (comparacao < 0)
+                    inicio = meio + 1;
+                else
+                    fim = meio - 1;
+            }
+
+            return -1;
+        }
+    }
+}
