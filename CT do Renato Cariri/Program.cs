@@ -60,6 +60,19 @@ namespace CT_do_Renato_Cariri
 
             double[] mensalidade = { 150.00, 120.00, 167.42, 60.00, 200.00 };
 
+            // Funçao Local
+            double CalcularFaturamento()
+            {
+                double total = 0;
+                for (int i = 0; i < mensalidade.Length; i++)
+                {
+                    total += mensalidade[i];
+                }
+                return total;
+            }
+            Double FatMensal = CalcularFaturamento();
+
+
             // Exibir os dados completos antes da ordenação
             Cabeçalho("Nomes antes de Ordenar");
             ExibirDadosCompletos(nomes, frequencia, treinos, mensalidade);
@@ -81,6 +94,12 @@ namespace CT_do_Renato_Cariri
                 Console.WriteLine($"O nome {nomeBuscaBinaria} foi encontrado na posição ordenada {posBinaria + 1}/5.");
             else
                 Console.WriteLine($"O nome {nomeBuscaBinaria} não foi encontrado.");
+
+            //Exibiçao da funçao local
+            Console.WriteLine($"\nO faturamento do CT DO CARIRI este mês foi de R${FatMensal}");
+
+            Cabeçalho("     FIM DO PROGRAMA");
+
         }
         // Função para exibir o cabeçalho do programa
         static void Cabeçalho(string Título)
