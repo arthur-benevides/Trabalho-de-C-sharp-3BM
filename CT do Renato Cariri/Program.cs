@@ -194,26 +194,36 @@ namespace CT_do_Renato_Cariri
             return -1;
         }
 
-        // Função para realizar a pesquisa binária de um nome no vetor de nomes ordenado
+        //Função de Pesquisa Binária sobre vetor ordenado
         static int PesquisaBinaria(string[] nomes, string nomeProcurado)
         {
-            int inicio = 0;
-            int fim = nomes.Length - 1;
-            while (inicio <= fim)
+            int meio;
+            int Min = 0;
+            int Max = nomes.Length - 1;
+
+            do
             {
-                int meio = (inicio + fim) / 2;
-                int comparacao = string.Compare(nomes[meio], nomeProcurado, StringComparison.OrdinalIgnoreCase);
+                meio = (Min + Max) / 2;
 
-                if (comparacao == 0)
+                if (nomes[meio] == nomeProcurado)
+                {
+
                     return meio;
-
-                if (comparacao < 0)
-                    inicio = meio + 1;
+                }
+                else if (nomeProcurado.CompareTo(nomes[meio]) > 0)
+                {
+                    Min = meio + 1;
+                }
                 else
-                    fim = meio - 1;
-            }
+                {
+                    Max = meio - 1;
+                }
 
+            } while (Min <= Max);
+
+            // Caso o retorno for -1, então o aluno não existe na sequência.
             return -1;
         }
+    
     }
 }
