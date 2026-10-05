@@ -10,6 +10,7 @@ namespace CT_do_Renato_Cariri
     {
         static void Main(string[] args)
         {
+            //Grupo: Arthur Benevides, Davi Ramos, Miguel Ferreira, Willian Paz, Wilmar Vinhas
             //Exibir o cabeçalho do programa
             Cabeçalho("CT do Renato Cariri");
             Console.WriteLine("Bem-vindo ao programa de controle de frequência e treinos dos alunos do CT do Renato Cariri!");
