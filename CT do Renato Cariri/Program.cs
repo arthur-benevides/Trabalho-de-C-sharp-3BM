@@ -55,7 +55,7 @@ namespace CT_do_Renato_Cariri
                 new string [] {"Peito", "Perna", "Costas", "Superiores", "Inferiores"},
                 new string [] {"Quadriceps", "Superiores", "Posterior", "Glúteos", "Abdomen"},
                 new string [] {"Posterior de Dorsal", "Inferior de Bacia", "Esternocleidomastóideo"},
-                new string [] {"Peito", "bíceps", "Peito", "Antebraço", "Peito", "Glúteos", "Peito do pé" },
+                new string [] {"Peito", "Glúteos", "Peito", "Glúteos", "Peito", "Glúteos", "Peito" },
                 new string [] {"Pescoço", "Glúteos" }
             };
 
